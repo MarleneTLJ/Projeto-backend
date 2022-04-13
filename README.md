@@ -1,6 +1,6 @@
 # Projeto MEAN - BackEnd
 
-Este API foi feito para se utilizar com o MEAN stack (MongoDB, Express, Angular e Node.js), mas pode ser utilizado com outras stacks também.
+Esta API foi feito para se utilizar com o MEAN stack (MongoDB, Express, Angular e Node.js), mas pode ser utilizado com outras stacks também.
 
 ## Pré-requisitos
 
@@ -8,7 +8,8 @@ Este API foi feito para se utilizar com o MEAN stack (MongoDB, Express, Angular 
 - MongoDB - [Página de download](https://www.mongodb.com/download-center/community)
 - Opcional: MongoDB Compass - [Página de download](https://www.mongodb.com/try/download/compass)
 
-## Instalação
+## Instalação e execução
 
-Antes de executar o API, é necessário instalar as dependências com o comando ```npm install``` no terminal (certifique que esteja na pasta do projeto).<br>
-Após a instalação, execute o comando ```npm start```. Certifique que o MongoDB esteja rodando!<br>
+Antes de executar a API, é necessário instalar as dependências com o comando ```npm install``` no terminal (certifique que esteja na pasta do projeto).<br>
+
+Após a instalação, execute o comando ```cp .env.example .env``` e depois ```npm start``` para iniciar a API. Certifique que o MongoDB esteja rodando!<br>
