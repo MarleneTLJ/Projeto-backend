@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs/dist/bcrypt');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 const authToken = require('./verifyToken');
 const { registerValidation, loginValidation } = require('../validation');
 
@@ -25,6 +26,7 @@ router.post('/register', async (req, res) => {
     // Cria um novo usuário
     const user = new User({
         name: req.body.name,
+        surname: req.body.surname,
         email: req.body.email,
         password: hashedPassword
     });
@@ -34,7 +36,6 @@ router.post('/register', async (req, res) => {
     } catch(err){
         res.status(400).send(err);
     }
-
 });
 
 // Login
@@ -59,6 +60,9 @@ router.post('/login', async (req, res) => {
     }
 
     // Cria e atribui um token
+    // const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+    // res.header('auth-token', token).send(token);
+
     let token = authToken.generateToken(user);
     res.json({ user, token });
 });
