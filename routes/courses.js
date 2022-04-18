@@ -50,7 +50,7 @@ router.delete("/:courseId", async (req, res) => {
 });
 
 // Atualiza um curso
-router.patch("/:courseId", async (req, res) => {
+router.put("/:courseId", async (req, res) => {
   try {
     const updatedCourse = await Course.updateOne(
       { _id: req.params.courseId },
