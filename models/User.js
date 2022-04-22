@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         min: 6,
         max: 255
     },
-    password: {
+    hashedPassword: {
         type: String,
         required: true,
         min: 6,

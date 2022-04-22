@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config/config')
 
 module.exports = {
   generateToken,
@@ -12,7 +13,7 @@ function generateToken(user) {
       return res.status(401).send('Acesso negado!');
   }
 
-  return jwt.sign(token, process.env.TOKEN_SECRET);
+  return jwt.sign(token, config.tknSecret);
 }
 
 // module.exports = function (req, res, next) {
