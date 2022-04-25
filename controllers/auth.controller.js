@@ -5,6 +5,7 @@ module.exports = {
   generateToken,
 };
 
+// Gera o token
 function generateToken(user) {
   const token = JSON.stringify(user);
 
