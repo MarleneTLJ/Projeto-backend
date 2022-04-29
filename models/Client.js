@@ -23,11 +23,6 @@ const clientSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    purchases: [
-        {
-            type: String,
-        },
-    ],
 });
 
 module.exports = mongoose.model('Client', clientSchema);
