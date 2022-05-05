@@ -16,7 +16,6 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const sale = new Sale(req.body);
 
-  console.log(req.body);
   try {
     const savedSale = await sale.save();
     return res.send(savedSale);
@@ -51,23 +50,7 @@ router.put("/:saleId", async (req, res) => {
     const updatedSale = await Sale.updateOne(
       { _id: req.params.saleId },
       {
-        $set: {
-          client: {
-            name: req.body.name,
-            surname: req.body.surname,
-            email: req.body.email,
-            cpf: req.body.cpf,
-          },
-          course: [
-            {
-              title: req.body.title,
-              workload: req.body.workload,
-              price: req.body.price,
-              description: req.body.description,
-            },
-          ],
-          value_paid: req.body.value_paid,
-        },
+        $set: req.body
       }
     );
     res.json(updatedSale);
