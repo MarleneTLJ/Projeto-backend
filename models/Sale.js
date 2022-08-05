@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const saleSchema = new mongoose.Schema({
   client: {
+    _id: { type: mongoose.ObjectId, required: true },
     name: {
       type: String,
       required: true,
@@ -37,19 +38,33 @@ const saleSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
+      type: {
+        type: String,
+        required: true,
+      },
+      area: {
+        type: String,
+        required: true,
+      },
       price: {
         type: Number,
         required: true,
       },
-      description: {
-        type: String,
-        required: true,
-        min: 6,
-        max: 1024,
-      },
     },
   ],
-  value_paid: Number,
+  value_paid: {
+    type: Number,
+    required: true
+  },
+  thing: Number,
+  user_logued: {
+    _id: { type: mongoose.ObjectId, required: true },
+    name: { type: String, required: true },
+    roles: {
+      admin: { type: String },
+      basic: { type: String },
+    },
+  },
   createdAt: Date,
 });
 

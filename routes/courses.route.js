@@ -1,6 +1,7 @@
 const express = require("express");
 const router = require("express").Router();
 const Course = require("../models/Course");
+const { verifyToken } = require('../controllers/auth.controller');
 
 // Retorna todos os cursos no banco de dados
 router.get("/", async (req, res) => {
@@ -13,12 +14,13 @@ router.get("/", async (req, res) => {
 });
 
 // Registra um curso
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const course = new Course({
     title: req.body.title,
     workload: req.body.workload,
+    type: req.body.type,
+    area: req.body.area,
     price: req.body.price,
-    description: req.body.description,
   });
 
   try {
@@ -40,7 +42,7 @@ router.get("/:courseId", async (req, res) => {
 });
 
 // Deleta um curso
-router.delete("/:courseId", async (req, res) => {
+router.delete("/:courseId", verifyToken, async (req, res) => {
   try {
     const removedCourse = await Course.remove({ _id: req.params.courseId });
     res.json(removedCourse);
@@ -50,7 +52,7 @@ router.delete("/:courseId", async (req, res) => {
 });
 
 // Atualiza um curso
-router.put("/:courseId", async (req, res) => {
+router.put("/:courseId", verifyToken, async (req, res) => {
   try {
     const updatedCourse = await Course.updateOne(
       { _id: req.params.courseId },
@@ -58,8 +60,9 @@ router.put("/:courseId", async (req, res) => {
         $set: {
           title: req.body.title,
           workload: req.body.workload,
+          type: req.body.type,
+          area: req.body.area,
           price: req.body.price,
-          description: req.body.description,
         },
       }
     );

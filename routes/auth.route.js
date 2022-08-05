@@ -33,4 +33,22 @@ function login(req, res) {
 
 router.get('/me', passport.authenticate('jwt', { session: false }), login);
 
+router.get("/:userId", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.userId);
+      res.json(user);
+    } catch (err) {
+      res.json({ message: err });
+    }
+});
+
+router.get("/", async (req, res) => {
+    try {
+      const users = await User.find();
+      res.json(users);
+    } catch (err) {
+      res.json({ message: err });
+    }
+});
+
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = require("express").Router();
 const Sale = require("../models/Sale");
+const { verifyToken } = require('../controllers/auth.controller');
 
 // Retorna todos as compras no banco de dados
 router.get("/", async (req, res) => {
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // Registra uma compra
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const sale = new Sale(req.body);
 
   try {
@@ -35,9 +36,9 @@ router.get("/:saleId", async (req, res) => {
 });
 
 // Deleta uma compra
-router.delete("/:saleId", async (req, res) => {
+router.delete("/:saleId", verifyToken, async (req, res) => {
   try {
-    const removedSale = await Sale.remove({ _id: req.params.saleId });
+    const removedSale = await Sale.deleteMany({ _id: req.params.saleId });
     res.json(removedSale);
   } catch (err) {
     res.json({ message: err });
@@ -45,7 +46,7 @@ router.delete("/:saleId", async (req, res) => {
 });
 
 // Atualiza uma compra
-router.put("/:saleId", async (req, res) => {
+router.put("/:saleId", verifyToken, async (req, res) => {
   try {
     const updatedSale = await Sale.updateOne(
       { _id: req.params.saleId },

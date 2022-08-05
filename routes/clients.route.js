@@ -1,6 +1,7 @@
 const express = require("express");
 const router = require("express").Router();
 const Client = require("../models/Client");
+const { verifyToken } = require("../controllers/auth.controller");
 
 // Retorna todos os clientes no banco de dados
 router.get("/", async (req, res) => {
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // Registra um cliente
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const client = new Client({
     name: req.body.name,
     surname: req.body.surname,
@@ -40,7 +41,7 @@ router.get("/:clientId", async (req, res) => {
 });
 
 // Deleta um cliente
-router.delete("/:clientId", async (req, res) => {
+router.delete("/:clientId", verifyToken, async (req, res) => {
   try {
     const removedClient = await Client.remove({ _id: req.params.clientId });
     res.json(removedClient);
@@ -50,23 +51,23 @@ router.delete("/:clientId", async (req, res) => {
 });
 
 // Atualiza um cliente
-router.put("/:clientId", async (req, res) => {
-    try {
-      const updatedClient = await Client.updateOne(
-        { _id: req.params.clientId },
-        {
-          $set: {
-            name: req.body.name,
-            surname: req.body.surname,
-            email: req.body.email,
-            cpf: req.body.cpf,
-          },
-        }
-      );
-      res.json(updatedClient);
-    } catch (err) {
-      res.json({ message: err });
-    }
-  });
-  
-  module.exports = router;
+router.put("/:clientId", verifyToken, async (req, res) => {
+  try {
+    const updatedClient = await Client.updateOne(
+      { _id: req.params.clientId },
+      {
+        $set: {
+          name: req.body.name,
+          surname: req.body.surname,
+          email: req.body.email,
+          cpf: req.body.cpf,
+        },
+      }
+    );
+    res.json(updatedClient);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+module.exports = router;

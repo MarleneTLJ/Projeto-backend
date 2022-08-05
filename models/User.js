@@ -28,6 +28,16 @@ const userSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    roles: {
+        admin: {
+            type: Boolean,
+            default: false
+        },
+        basic: {
+            type: Boolean,
+            default: true
+        }
     }
 });
 

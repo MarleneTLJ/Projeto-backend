@@ -11,20 +11,18 @@ const courseSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    type: {
+        type: String,
+        required: true,
+    },
+    area: {
+        type: String,
+        required: true,
+    },
     price: {
         type: Number,
         required: true,
     },
-    description: {
-        type: String,
-        required: true,
-        min: 6,
-        max: 1024
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    }
 });
 
 module.exports = mongoose.model('Course', courseSchema);
